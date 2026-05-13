@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Simulador INSS - Margem Negativa e Refinanciamento</title>
+    <meta
+      name="description"
+      content="Simulador operacional para margem consignavel INSS, RMC e RCC."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+    <header class="topbar no-print">
+      <div class="topbar__inner">
+        <div class="brand">
+          <div class="brand__mark" aria-hidden="true">
+            <svg viewBox="0 0 24 24" focusable="false">
+              <path d="M4 7.5A3.5 3.5 0 0 1 7.5 4h9A3.5 3.5 0 0 1 20 7.5v9a3.5 3.5 0 0 1-3.5 3.5h-9A3.5 3.5 0 0 1 4 16.5v-9Z" />
+              <path d="M8 13.25 10.65 16 16.5 8.5" />
+            </svg>
+          </div>
+          <div class="brand__copy">
+            <h1>Simulador INSS</h1>
+            <p>Margem negativa e refinanciamento - regra de 40%</p>
+          </div>
+        </div>
+
+        <div class="actions">
+          <button id="saveButton" class="button button--outline" type="button">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2Z" />
+              <path d="M17 21v-8H7v8" />
+              <path d="M7 3v5h8" />
+            </svg>
+            Salvar
+          </button>
+          <button id="printButton" class="button button--primary" type="button">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2" />
+              <path d="M6 9V3h12v6" />
+              <path d="M6 14h12v8H6z" />
+            </svg>
+            Exportar PDF
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main class="layout">
+      <section class="panel">
+        <div class="section-title">
+          <div class="section-title__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" focusable="false">
+              <path d="M21 12v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v3" />
+              <path d="M16 12h6v4h-6a2 2 0 0 1 0-4Z" />
+            </svg>
+          </div>
+          <div>
+            <span>Etapa 1</span>
+            <h2>Dados do Beneficio</h2>
+          </div>
+        </div>
+
+        <div class="benefit-grid">
+          <label class="field">
+            <span>Base de Calculo do Beneficio</span>
+            <input id="benefitBase" inputmode="numeric" autocomplete="off" placeholder="R$ 0,00" />
+          </label>
+
+          <label class="check">
+            <input id="hasRmc" type="checkbox" />
+            <span>Possui RMC (5%)</span>
+          </label>
+
+          <label class="check">
+            <input id="hasRcc" type="checkbox" />
+            <span>Possui RCC (5%)</span>
+          </label>
+        </div>
+
+        <div class="field-row">
+          <label class="field">
+            <span>Margem comprometida com emprestimo *</span>
+            <input id="committedMargin" inputmode="numeric" autocomplete="off" placeholder="R$ 0,00" />
+          </label>
+        </div>
+        <p id="limitWarning" class="warning" hidden>
+          A margem comprometida excede 35% da base de calculo. O simulador considera o limite maximo.
+        </p>
+
+        <div class="metric-grid">
+          <article class="metric metric--primary">
+            <span>Margem total nova (40%)</span>
+            <strong id="newMargin">R$ 0,00</strong>
+          </article>
+          <article class="metric">
+            <span>Valor RMC</span>
+            <strong id="rmcValue">R$ 0,00</strong>
+          </article>
+          <article class="metric">
+            <span>Valor RCC</span>
+            <strong id="rccValue">R$ 0,00</strong>
+          </article>
+          <article id="availableMetric" class="metric metric--success">
+            <span>Margem disponivel p/ emprestimo</span>
+            <strong id="availableMargin">R$ 0,00</strong>
+          </article>
+        </div>
+      </section>
+
+      <footer class="footer no-print">
+        Simulador operacional - Margem consignavel INSS · Regra 40%
+      </footer>
+    </main>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
